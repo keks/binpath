@@ -141,3 +141,11 @@ func Join(ps ...Path) Path {
 
 	return out
 }
+
+func Must(p Path, err error) Path {
+	if err != nil {
+		panic(err)
+	}
+
+	return p
+}
