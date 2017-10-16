@@ -23,7 +23,7 @@ import (
 )
 
 func TestPath(t *testing.T) {
-	p, err := ToPath("/home/keks/go/src/cryptoscope.co/binpath")
+	p, err := FromString("/home/keks/go/src/cryptoscope.co/binpath")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,23 +41,23 @@ func TestPath(t *testing.T) {
 }
 
 func TestJoin(t *testing.T) {
-	p1, err := ToPath("/home")
+	p1, err := FromString("/home")
 	if err != nil {
 		t.Fatal(err)
 	}
-	p2, err := ToPath("/keks")
+	p2, err := FromString("keks")
 	if err != nil {
 		t.Fatal(err)
 	}
-	
 	p := Join(p1, p2)
 	if p.String() != "/home/keks" {
 		t.Fatalf("got %#v", p)
 	}
 }
 
+
 func TestBinary(t *testing.T) {
-	p1, err := ToPath("bin")
+	p1, err := FromString("bin")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,7 +71,7 @@ func TestBinary(t *testing.T) {
 	
 	pOld := p
 	
-	p, err = ToPath(p.String())
+	p, err = FromString(p.String())
 	if err != nil {
 		t.Fatal(err)
 	}

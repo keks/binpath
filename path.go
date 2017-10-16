@@ -26,9 +26,9 @@ import (
 // Path is a path that may contain binary data
 type Path []byte
 
-// ToPath converts a string to a path. Arguments should have the format "/home/keks/go", with the leading slash being optional.
+// FromString converts a string to a path. Arguments should have the format "/home/keks/go", with the leading slash being optional.
 // if an element in the path (i.e. "home" or "keks" in the example above) starts with "b:", the rest of the element is parsed as URL-compatible base64.
-func ToPath(sp string) (Path, error) {
+func FromString(sp string) (Path, error) {
 	if len(sp) > 0 && sp[0] != '/' {
 		sp = "/" + sp
 	}
@@ -42,10 +42,10 @@ func ToPath(sp string) (Path, error) {
 
 	for _, el := range parts {
 		var data []byte
-		
+
 		if strings.HasPrefix(el, "b:") {
 			var err error
-			
+
 			b64 := el[2:]
 			data, err = base64.URLEncoding.DecodeString(b64)
 			if err != nil {
@@ -54,13 +54,11 @@ func ToPath(sp string) (Path, error) {
 		} else {
 			data = []byte(el)
 		}
-		
+
 		l := len(data)
 		if l == 0 {
 			continue
 		}
-		
-			
 
 		cur[0] = byte(l)
 		copy(cur[1:], data[:])
