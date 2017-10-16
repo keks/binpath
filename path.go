@@ -85,7 +85,7 @@ func (p Path) isBinary() bool {
 			return true
 		}
 	}
-	
+
 	return false
 }
 
@@ -93,35 +93,35 @@ func (p Path) isBinary() bool {
 func (p Path) String() string {
 	var (
 		head Path
-		out string
+		out  string
 	)
-	
+
 	for len(p) > 0 {
 		head, p = p.Pop()
-		if len(head) == 0 {
+		if len(head) < 2 {
+			// empty or only length byte
 			continue
 		}
 		out += "/"
-		
+
 		if head.isBinary() {
 			out += "b:" + base64.URLEncoding.EncodeToString(head[1:])
 		} else {
-			out +=string(head[1:])
+			out += string(head[1:])
 		}
 	}
-	
+
 	return out
 }
-		
 
 // Pop splits the Path in two parts: the first element ("head") and the rest ("tail")
 func (p Path) Pop() (head Path, tail Path) {
 	if len(p) == 0 {
 		return Path{}, Path{}
 	}
-	
+
 	l := p[0]
-	
+
 	return p[:l+1], p[l+1:]
 }
 

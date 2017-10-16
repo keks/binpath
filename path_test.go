@@ -31,9 +31,9 @@ func TestPath(t *testing.T) {
 		4, 'h', 'o', 'm', 'e',
 		4, 'k', 'e', 'k', 's',
 		2, 'g', 'o',
-		3, 's','r','c',
-		14, 'c','r','y','p','t','o','s','c','o','p','e','.','c','o',
-		7,'b','i','n','p','a','t','h',
+		3, 's', 'r', 'c',
+		14, 'c', 'r', 'y', 'p', 't', 'o', 's', 'c', 'o', 'p', 'e', '.', 'c', 'o',
+		7, 'b', 'i', 'n', 'p', 'a', 't', 'h',
 	}
 	if !bytes.Equal([]byte(p), exp) {
 		t.Fatalf("expected \n%x but got \n%x", exp, []byte(p))
@@ -49,6 +49,7 @@ func TestJoin(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	p := Join(p1, p2)
 	if p.String() != "/home/keks" {
 		t.Fatalf("got %#v", p)
@@ -62,20 +63,20 @@ func TestBinary(t *testing.T) {
 		t.Fatal(err)
 	}
 	p2 := Path{4, 60, 90, 129, 37}
-	
+
 	p := Join(p1, p2)
 	t.Log(p)
 	if p.String() != "/bin/b:PFqBJQ==" {
 		t.Fatalf("got %v", p)
 	}
-	
+
 	pOld := p
-	
+
 	p, err = FromString(p.String())
 	if err != nil {
 		t.Fatal(err)
 	}
-	
+
 	if !bytes.Equal(p, pOld) {
 		t.Fatalf("%x != %x", []byte(p), []byte(pOld))
 	}
