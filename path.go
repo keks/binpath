@@ -26,6 +26,16 @@ import (
 // Path is a path that may contain binary data
 type Path []byte
 
+// FromBytes converts a byte slice to a path. Arguments should only contain a single path element.
+func FromBytes(bs []byte) Path {
+	p := make(Path, 1, len(bs)+1)
+
+	p[0] = byte(len(bs))
+	p = append(p, bs...)
+
+	return p
+}
+
 // FromString converts a string to a path. Arguments should have the format "/home/keks/go", with the leading slash being optional.
 // if an element in the path (i.e. "home" or "keks" in the example above) starts with "b:", the rest of the element is parsed as URL-compatible base64.
 func FromString(sp string) (Path, error) {
