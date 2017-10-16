@@ -126,6 +126,18 @@ func (p Path) Pop() (head Path, tail Path) {
 }
 
 // Join joins two paths and returns the result.
-func Join(a, b Path) Path {
-	return append(a, b...)
+func Join(ps ...Path) Path {
+	var l int
+
+	for _, p := range ps {
+		l += len(p)
+	}
+
+	out := make(Path, 0, l)
+	for len(ps) > 0 {
+		out = append(out, ps[0]...)
+		ps = ps[1:]
+	}
+
+	return out
 }
