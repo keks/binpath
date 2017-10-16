@@ -56,6 +56,12 @@ func TestJoin(t *testing.T) {
 	}
 }
 
+func TestEmpty(t *testing.T) {
+	p := Path{3, 'f', 'o', 'o', 0, 3, 'b', 'a', 'r'}
+	if p.String() != "/foo/bar" {
+		t.Fatalf("got %s", p)
+	}
+}
 
 func TestBinary(t *testing.T) {
 	p1, err := FromString("bin")
